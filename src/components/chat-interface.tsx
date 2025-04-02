@@ -8,6 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
 import { Send } from 'lucide-react'
 import { reactAgent } from '@/lib/agents/react-agent'
+import { sqlAgent } from '@/lib/agents/sql-agent'
 
 // Define message type
 type Message = {
@@ -55,6 +56,9 @@ export function ChatInterface({
   // Function to simulate agent response
   const getAgentResponse = async (userMessage: string) => {
     setIsLoading(true)
+
+    console.log('agent type: ', agentType);
+
     
     try {
       let response;
@@ -66,8 +70,8 @@ export function ChatInterface({
         // case 'rag':
         //   response = await ragAgent.getResponse(userMessage, messages);
         //   break;
-        // case 'sql':
-        //   response = await sqlAgent.getResponse(userMessage, messages);
+        case 'sql':
+          response = await sqlAgent.getResponse(userMessage, messages);
           break;
       }
       
